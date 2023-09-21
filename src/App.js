@@ -1,23 +1,45 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
 
 function App() {
+  // functions
+  const [newItem, setNewItem] = useState('');
+  const [items, setItems] = useState([]);
+
+  function addItem() {
+    if (!newItem) {
+      return;
+    }
+    const newItemObject = {
+      id: Math.floor(Math.random() * 1000),
+      value: newItem,
+    };
+    setItems((oldItems) => [...oldItems, newItemObject]);
+    setNewItem(""); // newItem'i temizleyin
+  }
+  function deleteItem(id){
+    const newArray = items.filter(item => item.id !== id)
+    setItems(newArray)
+
+  }
+
   return (
+    // htmls
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>to do list</h1>
+
+      <input
+        type="text"
+        placeholder="add to do"
+        value={newItem}
+        onChange={(e) => setNewItem(e.target.value)}
+      />
+      <button onClick={addItem}>➕</button>
+      <ul>
+        {items.map((item) => {
+          return <li key={item.id}>{item.value} <button onClick={()=>deleteItem(item.id)}>✔️</button></li>;
+        })}
+      </ul>
     </div>
   );
 }
