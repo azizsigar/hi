@@ -1,45 +1,40 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 
 function App() {
   // functions
-  const [newItem, setNewItem] = useState('');
-  const [items, setItems] = useState([]);
+  const [quotes, setQuotes] = useState(""); 
+  // quotes adında bir state tanımlıyoruz. Bu state, alınan alıntıları saklamak için kullanılacak.
 
-  function addItem() {
-    if (!newItem) {
-      return;
-    }
-    const newItemObject = {
-      id: Math.floor(Math.random() * 1000),
-      value: newItem,
-    };
-    setItems((oldItems) => [...oldItems, newItemObject]);
-    setNewItem(""); // newItem'i temizleyin
+  // getQuotes adında bir işlev tanımlıyoruz. Bu işlev, alıntıları almak için API'ye istek yapacak.
+  const getQuotes = () => {
+    fetch("https://type.fit/api/quotes") // API'den alıntıları çekmek için fetch kullanılıyor.
+      .then((res) => res.json()) // API yanıtını JSON formatına dönüştürüyoruz.
+      .then((data) => {
+        let randomNum = Math.floor(Math.random() * data.length); 
+        // API'den alınan alıntılar arasından rastgele bir alıntı seçiyoruz.
+        setQuotes(data[randomNum]); 
+        // Seçilen alıntıyı "quotes" adlı state'e ayarlıyoruz.
+      });
   }
-  function deleteItem(id){
-    const newArray = items.filter(item => item.id !== id)
-    setItems(newArray)
 
-  }
+  // useEffect kullanarak, bileşen yüklendiğinde bir kere "getQuotes" işlemini çağırıyoruz.
+  useEffect(() => {
+    getQuotes();
+  }, []);
 
   return (
-    // htmls
+    // HTML içeriği
     <div className="App">
-      <h1>to do list</h1>
-
-      <input
-        type="text"
-        placeholder="add to do"
-        value={newItem}
-        onChange={(e) => setNewItem(e.target.value)}
-      />
-      <button onClick={addItem}>➕</button>
-      <ul>
-        {items.map((item) => {
-          return <li key={item.id}>{item.value} <button onClick={()=>deleteItem(item.id)}>✔️</button></li>;
-        })}
-      </ul>
+      <div>
+        {quotes.text} {/* quotes state'indeki alıntı metni burada görüntülenir. */}
+      </div> 
+      <div>
+        {quotes.author} {/* Alıntı yazarı burada görüntülenir. */}
+      </div>
+      <div>
+        <button onClick={getQuotes}>get Quotes</button> {/* "getQuotes" işlevini çağırmak için bir düğme. */}
+      </div>
     </div>
   );
 }
