@@ -1,13 +1,22 @@
-import React, { useState } from 'react';
 import './App.css';
+import Question from './components/Question';
 
 function App() {
   // functions
 
   return (
     // htmls
-<div>
-  hi
+    <div className='App'>
+            Streak:
+      <Question />
+      <div>
+        <button>next</button>
+        <div>
+          <p>
+            {/* Streak:{} */}
+            </p>
+          </div>
+      </div>
     </div>
   );
 }
