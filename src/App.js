@@ -1,5 +1,6 @@
 import './App.css';
-import Question from './components/Question';
+import Test from './components/Test';
+// import Question from './components/Question';
 
 function App() {
   // functions
@@ -7,8 +8,9 @@ function App() {
   return (
     // htmls
     <div className='App'>
+      <Test/>
             Streak:
-      <Question />
+      {/* <Question /> */}
       <div>
         <button>next</button>
         <div>
