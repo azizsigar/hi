@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
 import './App.css';
+
+import Search from './comps/Search';
 
 function App() {
   // functions
-
+  
   return (
-    // htmls
-<div>
-  hi
+    <div className="App">
+      <Search />
     </div>
   );
 }

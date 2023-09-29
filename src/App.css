@@ -1,0 +1,26 @@
+img{
+    width: 200px;
+    height: 200px;
+    border: 2px  black solid;
+    box-shadow: 2px 2px black;
+}
+.data p{
+    border: 1px black solid; 
+    box-shadow: 1px 1px black;
+     padding: 15px;
+     border-radius: 5px;
+     width: 20rem;
+
+}
+
+body{
+    text-decoration: none;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    align-content: center;
+}
